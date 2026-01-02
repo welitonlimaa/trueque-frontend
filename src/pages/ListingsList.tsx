@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { getAllListings } from '../api/listings';
 import type { ListingResponseDTO } from '../types/api';
+import { Link } from 'react-router-dom';
 
 
 export default function ListingsList() {
@@ -18,6 +19,12 @@ return (
 <div key={l.id} className="card">
 <h3 className="font-semibold">{l.title}</h3>
 <p className="text-sm">{l.description}</p>
+<Link
+to={`/listings/${l.id}`}
+className="inline-flex mt-6 px-4 py-2 bg-blue-600 text-white rounded"
+>
+Ver detalhes
+</Link>
 </div>
 ))}
 </div>

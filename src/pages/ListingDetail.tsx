@@ -1,17 +1,20 @@
 import React, { useEffect, useState } from 'react';
-import { useParams, useNavigate } from 'react-router-dom';
+import { useParams, useNavigate, Link } from 'react-router-dom';
 import { getListingById } from '../api/listings';
 import { ListingResponseDTO } from '../types/api';
+import { getCurrentUser } from '../utils/getCurrentUser';
 
 
 export default function ListingDetail() {
   const { id } = useParams<{ id: string }>();
-  const navigate = useNavigate();
+  //const navigate = useNavigate();
   const [listing, setListing] = useState<ListingResponseDTO | null>(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState('');
 
-    useEffect(() => {
+  const currentUser = getCurrentUser();
+
+  useEffect(() => {
         if (!id) return;
 
         const fetchListing = async () => {
@@ -51,6 +54,15 @@ export default function ListingDetail() {
 
       <div className="text-gray-400 text-sm">Criado em: {new Date(listing.createdAt).toLocaleDateString()}</div>
       <div className="text-gray-400 text-sm">Criado por: {listing.user.name}</div>
+      {listing?.user?.id === currentUser?.userId && (
+        <Link
+          to={`/listings/${listing.id}/trade-offers`}
+          className="inline-flex mt-6 px-4 py-2 bg-blue-600 text-white rounded"
+        >
+          Ver propostas recebidas
+        </Link>
+      )}
+
     </div>
   );
 }

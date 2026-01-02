@@ -6,6 +6,7 @@ import Login from './pages/Login';
 import Register from './pages/Register';
 import ListingsList from './pages/ListingsList';
 import ListingDetail from './pages/ListingDetail';
+import ListingTradeOffers from './pages/ListingTradeOffers';
 // import CreateListing from './pages/CreateListing';
 // import TradeOffers from './pages/TradeOffers';
 
@@ -26,6 +27,11 @@ export default function App() {
 
           <Route path="/listings" element={<ListingsList />} />
           <Route path="/listings/:id" element={<ListingDetail />} />
+
+          <Route
+            path="/listings/:id/trade-offers"
+            element={<ListingTradeOffers />}
+          />
 
           {/* fallback */}
           <Route path="*" element={<Navigate to="/" />} />

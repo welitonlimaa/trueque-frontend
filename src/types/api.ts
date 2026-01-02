@@ -1,6 +1,6 @@
 export type LoginRequestDTO = { email: string; password: string };
-export type AuthResponseDTO = { email: string; name: string; token: string };
 
+export type AuthResponseDTO = { email: string; name: string; token: string };
 
 export type ListingRequestDTO = {
 title: string;
@@ -11,7 +11,6 @@ city: string;
 state: string;
 images: string[];
 };
-
 
 export type UserSummaryDTO = {
     id: string;
@@ -33,7 +32,6 @@ export type ListingResponseDTO = {
     user?: UserSummaryDTO;
 };
 
-
 export interface UserDataRequestDTO {
     name: string;
     email: string;
@@ -43,5 +41,20 @@ export interface UserDataRequestDTO {
     state: string;
     profilePicture?: string;
     googleId?: string;
-  }
-  
+};
+
+export type TradeOfferResponseDTO = {
+  id: string;
+  status: 'PENDING' | 'ACCEPTED' | 'REJECTED';
+  createdAt: string;
+  acceptedAt?: string;
+  rejectedAt?: string;
+
+  offeredListingId: string;
+  requestedListingId: string;
+};
+
+export type TradeOfferWithListings = TradeOfferResponseDTO & {
+  offeredListing: ListingResponseDTO;
+  requestedListing: ListingResponseDTO;
+};
