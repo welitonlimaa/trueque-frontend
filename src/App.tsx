@@ -7,6 +7,9 @@ import Register from './pages/Register';
 import ListingsList from './pages/ListingsList';
 import ListingDetail from './pages/ListingDetail';
 import ListingTradeOffers from './pages/ListingTradeOffers';
+import CreateListing from './pages/CreateListing';
+import MainLayout from './layouts/MainLayout';
+import Home from './pages/Home';
 // import CreateListing from './pages/CreateListing';
 // import TradeOffers from './pages/TradeOffers';
 
@@ -20,18 +23,21 @@ export default function App() {
 
       <div className="pt-16">
         <Routes>
-          {/* <Route path="/" element={<Home />} /> */}
+          <Route element={<MainLayout />}>
+            <Route path="/" element={<Home />} />
+            <Route path="/login" element={<Login />} />
+            <Route path="/register" element={<Register />} />
 
-          <Route path="/login" element={<Login />} />
-          <Route path="/register" element={<Register />} />
+            <Route path="/listings" element={<ListingsList />} />
+            <Route path="/listings/:id" element={<ListingDetail />} />
 
-          <Route path="/listings" element={<ListingsList />} />
-          <Route path="/listings/:id" element={<ListingDetail />} />
+            <Route
+              path="/listings/:id/trade-offers"
+              element={<ListingTradeOffers />}
+            />
 
-          <Route
-            path="/listings/:id/trade-offers"
-            element={<ListingTradeOffers />}
-          />
+            <Route path="/listings/new" element={<CreateListing />} />
+          </Route>
 
           {/* fallback */}
           <Route path="*" element={<Navigate to="/" />} />
