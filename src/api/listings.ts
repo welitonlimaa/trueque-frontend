@@ -1,5 +1,5 @@
 import client from './client';
-import type { ListingRequestDTO, ListingResponseDTO } from '../types/api';
+import type { AiListingResponseDTO, ListingRequestDTO, ListingResponseDTO } from '../types/api';
 
 
 export async function getAllListings() {
@@ -19,3 +19,18 @@ const res = await client.post<ListingResponseDTO>('/listings/createlisting', dat
 return res.data;
 }
 
+
+export async function autofillListingWithAi(
+  imageBase64: string
+): Promise<AiListingResponseDTO> {
+  if (!imageBase64) {
+    throw new Error('Imagem não informada');
+  }
+
+  const res = await client.post<AiListingResponseDTO>(
+    '/ai/listings/autofill',
+    { imageBase64 }
+  );
+
+  return res.data;
+}

@@ -2,16 +2,6 @@ export type LoginRequestDTO = { email: string; password: string };
 
 export type AuthResponseDTO = { email: string; name: string; token: string };
 
-export type ListingRequestDTO = {
-title: string;
-description: string;
-category: string;
-condition: string;
-city: string;
-state: string;
-images: string[];
-};
-
 export type UserSummaryDTO = {
     id: string;
     name: string;
@@ -30,6 +20,16 @@ export type ListingResponseDTO = {
     status?: string;
     createdAt?: string;
     user?: UserSummaryDTO;
+};
+
+export type ListingRequestDTO = {
+  title: string;
+  description?: string;
+  category?: string;
+  condition?: string;
+  city?: string;
+  state?: string;
+  images?: string[];
 };
 
 export interface UserDataRequestDTO {
@@ -58,3 +58,14 @@ export type TradeOfferWithListings = TradeOfferResponseDTO & {
   offeredListing: ListingResponseDTO;
   requestedListing: ListingResponseDTO;
 };
+
+export interface AiListingRequestDTO {
+  imageBase64: string;
+}
+
+export interface AiListingResponseDTO {
+  title: string;
+  description: string;
+  category: string;
+  condition: string;
+}
