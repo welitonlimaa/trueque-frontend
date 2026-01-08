@@ -7,7 +7,7 @@ import { getCurrentUser } from '../utils/getCurrentUser';
 
 export default function ListingDetail() {
   const { id } = useParams<{ id: string }>();
-  //const navigate = useNavigate();
+  const navigate = useNavigate();
   const [listing, setListing] = useState<ListingResponseDTO | null>(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState('');
@@ -62,6 +62,13 @@ export default function ListingDetail() {
           Ver propostas recebidas
         </Link>
       )}
+
+      <button
+        onClick={() => navigate(`/trade-offers/new/${listing.id}`)}
+        className="text-sm text-blue-600 hover:underline"
+      >
+        Fazer proposta
+      </button>
 
     </div>
   );

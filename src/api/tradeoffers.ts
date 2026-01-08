@@ -1,5 +1,5 @@
 import client from './client';
-import type { TradeOfferResponseDTO, TradeOfferWithListings, ListingResponseDTO } from '../types/api';
+import type { TradeOfferResponseDTO, TradeOfferWithListings, ListingResponseDTO, TradeOfferRequestDTO } from '../types/api';
 import { getListingById } from './listings';
 
 export async function getTradeOffersByListingId(listingId: string) {
@@ -34,4 +34,11 @@ export async function getTradeOffersWithListings(
     offeredListing: listingsMap.get(offer.offeredListingId)!,
     requestedListing: listingsMap.get(offer.requestedListingId)!,
   }));
+}
+
+export async function createTradeOffer(
+  data: TradeOfferRequestDTO
+) {
+  const res = await client.post('/tradeoffers', data);
+  return res.data;
 }

@@ -62,10 +62,14 @@ export type TradeOfferWithListings = TradeOfferResponseDTO & {
 export interface AiListingRequestDTO {
   imageBase64: string;
 }
-
 export interface AiListingResponseDTO {
   title: string;
   description: string;
   category: string;
   condition: string;
 }
+
+export type TradeOfferRequestDTO = {
+  offeredListingId: string;
+  requestedListingId: string;
+};

@@ -10,6 +10,7 @@ import ListingTradeOffers from './pages/ListingTradeOffers';
 import CreateListing from './pages/CreateListing';
 import MainLayout from './layouts/MainLayout';
 import Home from './pages/Home';
+import CreateTradeOffer from './pages/CreateTradeOffer';
 // import CreateListing from './pages/CreateListing';
 // import TradeOffers from './pages/TradeOffers';
 
@@ -37,6 +38,10 @@ export default function App() {
             />
 
             <Route path="/listings/new" element={<CreateListing />} />
+            <Route
+              path="/trade-offers/new/:requestedListingId"
+              element={<CreateTradeOffer />}
+            />
           </Route>
 
           {/* fallback */}

@@ -7,6 +7,10 @@ const res = await client.get<ListingResponseDTO[]>('/listings/');
 return res.data;
 }
 
+export async function getMyListings() {
+const res = await client.get<ListingResponseDTO[]>('/listings/my');
+return res.data;
+}
 
 export async function getListingById(id: string) {
 const res = await client.get<ListingResponseDTO>(`/listings/${id}`);
