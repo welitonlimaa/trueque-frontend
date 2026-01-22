@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { UserDataRequestDTO } from '../types/api';
+import StateCitySelect from './StateCitySelect';
 
 interface Props {
   loading: boolean;
@@ -40,8 +41,13 @@ export default function RegisterForm({ loading, error, onSubmit }: Props) {
       <input type="email" name="email" placeholder="Email" value={formData.email} onChange={handleChange} required className="w-full p-2 mb-4 border rounded" />
       <input type="password" name="password" placeholder="Senha" value={formData.password} onChange={handleChange} required className="w-full p-2 mb-4 border rounded" />
       <input type="text" name="phone" placeholder="Telefone" value={formData.phone} onChange={handleChange} required className="w-full p-2 mb-4 border rounded" />
-      <input type="text" name="city" placeholder="Cidade" value={formData.city} onChange={handleChange} required className="w-full p-2 mb-4 border rounded" />
-      <input type="text" name="state" placeholder="Estado" value={formData.state} onChange={handleChange} required className="w-full p-2 mb-4 border rounded" />
+      <StateCitySelect
+        state={formData.state}
+        city={formData.city}
+        onChange={({ state, city }) =>
+          setFormData((prev) => ({ ...prev, state, city }))
+        }
+      />
 
       <button type="submit" disabled={loading} className="w-full bg-blue-500 text-white p-2 rounded hover:bg-blue-600 transition">
         {loading ? 'Registrando...' : 'Registrar'}

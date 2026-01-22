@@ -1,32 +1,30 @@
-import React, { useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import { getAllListings } from '../api/listings';
-import type { ListingResponseDTO } from '../types/api';
-import { Link } from 'react-router-dom';
-
+import { useNavigate } from 'react-router-dom';
+import ListingGrid from '../components/Listing/ListingGrid';
+import { ListingResponseDTO } from '../types/api';
 
 export default function ListingsList() {
-const [listings, setListings] = useState<ListingResponseDTO[]>([]);
+  const [listings, setListings] = useState<ListingResponseDTO[]>([]);
+  const navigate = useNavigate();
 
+  useEffect(() => {
+    getAllListings().then(setListings);
+  }, []);
 
-useEffect(() => {
-getAllListings().then(setListings).catch(console.error);
-}, []);
-console.log(listings)
-
-return (
-<div className="p-6 grid grid-cols-1 md:grid-cols-3 gap-4">
-{listings.map((l) => (
-<div key={l.id} className="card">
-<h3 className="font-semibold">{l.title}</h3>
-<p className="text-sm">{l.description}</p>
-<Link
-to={`/listings/${l.id}`}
-className="inline-flex mt-6 px-4 py-2 bg-blue-600 text-white rounded"
->
-Ver detalhes
-</Link>
-</div>
-))}
-</div>
-);
+  return (
+    <div className="p-6">
+      <ListingGrid
+        items={listings}
+        renderFooter={(listing) => (
+          <button
+            onClick={() => navigate(`/listings/${listing.id}`)}
+            className="mt-3 text-sm text-blue-600"
+          >
+            Ver detalhes
+          </button>
+        )}
+      />
+    </div>
+  );
 }

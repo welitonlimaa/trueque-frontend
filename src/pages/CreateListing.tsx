@@ -3,6 +3,12 @@ import { useNavigate } from 'react-router-dom';
 import { createListing, autofillListingWithAi } from '../api/listings';
 import { ListingRequestDTO } from '../types/api';
 import { imageToBase64 } from '../utils/imageToBase64';
+import StateCitySelect from '../components/StateCitySelect';
+import ImageUploader from '../components/ImageUploader';
+import { uploadImages } from '../api/uploads';
+import categories from '../data/categories.json';
+import conditions from '../data/conditions.json';
+import SelectField from '../components/SelectField';
 
 export default function CreateListing() {
   const navigate = useNavigate();
@@ -11,6 +17,7 @@ export default function CreateListing() {
   const [loadingAi, setLoadingAi] = useState(false);
   const [error, setError] = useState('');
   const [imageFile, setImageFile] = useState<File | null>(null);
+  const [images, setImages] = useState<File[]>([]);
 
   const [form, setForm] = useState<ListingRequestDTO>({
     title: '',
@@ -27,14 +34,6 @@ export default function CreateListing() {
   ) {
     const { name, value } = e.target;
     setForm((prev) => ({ ...prev, [name]: value }));
-  }
-
-  function handleImagesChange(e: React.ChangeEvent<HTMLInputElement>) {
-    const value = e.target.value;
-    setForm((prev) => ({
-      ...prev,
-      images: value.split(',').map((url) => url.trim()),
-    }));
   }
 
   function handleFileChange(e: React.ChangeEvent<HTMLInputElement>) {
@@ -60,7 +59,6 @@ export default function CreateListing() {
         title: aiData.title,
         description: aiData.description,
         category: aiData.category,
-        condition: aiData.condition,
       }));
     } catch (err: any) {
       setError(err.message || 'Erro ao usar IA');
@@ -72,11 +70,23 @@ export default function CreateListing() {
   async function handleSubmit(e: React.FormEvent) {
     e.preventDefault();
 
+    if (images.length === 0) {
+      setError('Adicione pelo menos uma imagem');
+      return;
+    }
+
     try {
       setLoading(true);
       setError('');
 
-      const listing = await createListing(form);
+      const imageUrls = await uploadImages(images);
+
+      const payload = {
+        ...form,
+        images: imageUrls,
+      };
+
+      const listing = await createListing(payload);
       navigate(`/listings/${listing.id}`);
     } catch (err: any) {
       setError(err.response?.data?.message || 'Erro ao criar anúncio');
@@ -91,7 +101,6 @@ export default function CreateListing() {
 
       {error && <p className="text-red-500 mb-4">{error}</p>}
 
-      {/* IA */}
       <div className="mb-6 space-y-2">
         <input type="file" accept="image/*" onChange={handleFileChange} />
 
@@ -105,7 +114,6 @@ export default function CreateListing() {
         </button>
       </div>
 
-      {/* FORM */}
       <form onSubmit={handleSubmit} className="space-y-4">
         <input
           name="title"
@@ -124,44 +132,35 @@ export default function CreateListing() {
           className="w-full border p-2 rounded"
         />
 
-        <input
-          name="category"
-          placeholder="Categoria"
+        <SelectField
           value={form.category}
-          onChange={handleChange}
-          className="w-full border p-2 rounded"
+          onChange={(value) =>
+            setForm((prev) => ({ ...prev, category: value }))
+          }
+          options={categories}
+          placeholder="Selecione a categoria"
         />
 
-        <input
-          name="condition"
-          placeholder="Condição (Novo, Usado...)"
+        <SelectField
           value={form.condition}
-          onChange={handleChange}
-          className="w-full border p-2 rounded"
+          onChange={(value) =>
+            setForm((prev) => ({ ...prev, condition: value }))
+          }
+          options={conditions}
+          placeholder="Condição"
         />
 
-        <div className="grid grid-cols-2 gap-4">
-          <input
-            name="city"
-            placeholder="Cidade"
-            value={form.city}
-            onChange={handleChange}
-            className="w-full border p-2 rounded"
-          />
+        <StateCitySelect
+          state={form.state}
+          city={form.city}
+          onChange={({ state, city }) =>
+            setForm((prev) => ({ ...prev, state, city }))
+          }
+        />
 
-          <input
-            name="state"
-            placeholder="Estado"
-            value={form.state}
-            onChange={handleChange}
-            className="w-full border p-2 rounded"
-          />
-        </div>
-
-        <input
-          placeholder="URLs das imagens (separadas por vírgula)"
-          onChange={handleImagesChange}
-          className="w-full border p-2 rounded"
+        <ImageUploader
+          images={images}
+          onChange={setImages}
         />
 
         <button

@@ -25,10 +25,10 @@ export type ListingResponseDTO = {
 export type ListingRequestDTO = {
   title: string;
   description?: string;
-  category?: string;
-  condition?: string;
-  city?: string;
-  state?: string;
+  category: string;
+  condition: string;
+  city: string;
+  state: string;
   images?: string[];
 };
 

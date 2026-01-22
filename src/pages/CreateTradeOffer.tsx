@@ -3,7 +3,10 @@ import { useParams, useNavigate } from 'react-router-dom';
 import { getListingById, getMyListings } from '../api/listings';
 import { createTradeOffer } from '../api/tradeoffers';
 import { ListingResponseDTO } from '../types/api';
-import ListingCard from '../components/ListingCard';
+import { ListingCardMedia } from '../components/Listing/ListingCardMedia';
+import { ListingCardInfo } from '../components/Listing/ListingCardInfo';
+import ListingGrid from '../components/Listing/ListingGrid';
+import ListingCard from '../components/Listing/ListingCard';
 
 export default function CreateTradeOffer() {
   const requestedListingId = useParams().requestedListingId ?? '';
@@ -64,35 +67,29 @@ export default function CreateTradeOffer() {
     <div className="max-w-5xl mx-auto p-6 space-y-8">
       <h1 className="text-2xl font-bold">Criar proposta de troca</h1>
 
-      {/* ITEM DESEJADO */}
       <section>
         <h2 className="font-semibold mb-2">Item desejado</h2>
-        {requestedListing && <ListingCard listing={requestedListing} />}
+
+        {requestedListing && (
+          <ListingCard>
+            <ListingCardMedia
+              image={requestedListing.images?.[0]}
+              title={requestedListing.title}
+            />
+            <ListingCardInfo listing={requestedListing} />
+          </ListingCard>
+        )}
       </section>
 
       {/* SEUS ITENS */}
       <section>
         <h2 className="font-semibold mb-4">Escolha um item para oferecer</h2>
 
-        {myListings.length === 0 ? (
-          <p>Você ainda não possui anúncios.</p>
-        ) : (
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-            {myListings.map((listing) => (
-              <button
-                key={listing.id}
-                onClick={() => setSelectedListingId(listing.id)}
-                className={`border rounded p-4 text-left ${
-                  selectedListingId === listing.id
-                    ? 'border-blue-600 bg-blue-50'
-                    : ''
-                }`}
-              >
-                <ListingCard listing={listing} />
-              </button>
-            ))}
-          </div>
-        )}
+        <ListingGrid
+          items={myListings}
+          selectedId={selectedListingId}
+          onSelect={setSelectedListingId}
+        />
       </section>
 
       <button
