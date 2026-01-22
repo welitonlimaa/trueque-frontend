@@ -1,0 +1,17 @@
+[
+  { "code": "vestuario", "name": "Vestuário" },
+  { "code": "eletronicos", "name": "Eletrônicos" },
+  { "code": "moveis", "name": "Móveis" },
+  { "code": "eletrodomesticos", "name": "Eletrodomésticos" },
+  { "code": "calcados", "name": "Calçados" },
+  { "code": "acessorios", "name": "Acessórios" },
+  { "code": "livros", "name": "Livros" },
+  { "code": "esporte_lazer", "name": "Esporte e Lazer" },
+  { "code": "beleza_cuidados", "name": "Beleza e Cuidados Pessoais" },
+  { "code": "automotivo", "name": "Automotivo" },
+  { "code": "infantil", "name": "Infantil" },
+  { "code": "casa_decoracao", "name": "Casa e Decoração" },
+  { "code": "ferramentas", "name": "Ferramentas" },
+  { "code": "pet", "name": "Pet" },
+  { "code": "outros", "name": "Outros" }
+]
