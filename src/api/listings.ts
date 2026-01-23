@@ -1,4 +1,5 @@
 import client from './client';
+import authClient from './authClient';
 import type { AiListingResponseDTO, ListingRequestDTO, ListingResponseDTO } from '../types/api';
 
 
@@ -8,7 +9,7 @@ return res.data;
 }
 
 export async function getMyListings() {
-const res = await client.get<ListingResponseDTO[]>('/listings/my');
+const res = await authClient.get<ListingResponseDTO[]>('/listings/my');
 return res.data;
 }
 
@@ -19,7 +20,7 @@ return res.data;
 
 
 export async function createListing(data: ListingRequestDTO) {
-const res = await client.post<ListingResponseDTO>('/listings/createlisting', data);
+const res = await authClient.post<ListingResponseDTO>('/listings/createlisting', data);
 return res.data;
 }
 
@@ -31,7 +32,7 @@ export async function autofillListingWithAi(
     throw new Error('Imagem não informada');
   }
 
-  const res = await client.post<AiListingResponseDTO>(
+  const res = await authClient.post<AiListingResponseDTO>(
     '/ai/listings/autofill',
     { imageBase64 }
   );

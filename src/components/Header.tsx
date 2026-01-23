@@ -10,41 +10,45 @@ export default function Header() {
   }
 
   return (
-    <header className="bg-white shadow">
-      <div className="max-w-6xl mx-auto px-6 py-4 flex items-center justify-between">
-        {/* Logo / Home */}
+    <header className="fixed top-0 inset-x-0 z-50 bg-white border-b">
+      <div className="max-w-7xl mx-auto px-4 h-16 flex items-center justify-between">
+        
+        {/* Logo */}
         <Link to="/" className="text-xl font-bold text-blue-600">
           Trueque
         </Link>
 
         {/* Navegação */}
-        <nav className="flex items-center gap-6 text-sm">
+        <nav className="flex items-center gap-4 text-sm">
           <Link to="/listings" className="hover:text-blue-600">
             Anúncios
           </Link>
 
           {token && (
-            <Link to="/listings/new" className="hover:text-blue-600">
-              Criar anúncio
+            <Link
+              to="/listings/new"
+              className="bg-blue-600 text-white px-4 py-2 rounded-md text-sm hover:bg-blue-700"
+            >
+              Anunciar
             </Link>
           )}
 
           {!token ? (
             <>
               <Link to="/login" className="hover:text-blue-600">
-                Login
+                Entrar
               </Link>
               <Link
                 to="/register"
-                className="bg-blue-600 text-white px-4 py-1.5 rounded hover:bg-blue-700"
+                className="border px-4 py-2 rounded-md hover:bg-gray-100"
               >
-                Cadastro
+                Criar conta
               </Link>
             </>
           ) : (
             <button
               onClick={handleLogout}
-              className="text-red-500 hover:text-red-600"
+              className="text-gray-500 hover:text-red-500"
             >
               Sair
             </button>

@@ -1,6 +1,9 @@
 import React, { useState } from 'react';
 import { UserDataRequestDTO } from '../types/api';
 import StateCitySelect from './StateCitySelect';
+import FormCard from './ui/FormCard';
+import InputField from './ui/InputField';
+import Button from './ui/Button';
 
 interface Props {
   loading: boolean;
@@ -30,28 +33,33 @@ export default function RegisterForm({ loading, error, onSubmit }: Props) {
   };
 
   return (
-    <form
-      className="bg-white p-8 rounded shadow-md w-full max-w-md"
-      onSubmit={handleSubmit}
-    >
-      <h2 className="text-2xl font-bold mb-6">Registrar</h2>
-      {error && <p className="text-red-500 mb-4">{error}</p>}
+    <div className="min-h-screen flex items-center justify-center bg-gray-50">
+      <FormCard>
+        <h2 className="mb-6 text-xl font-semibold">Criar conta</h2>
 
-      <input type="text" name="name" placeholder="Nome" value={formData.name} onChange={handleChange} required className="w-full p-2 mb-4 border rounded" />
-      <input type="email" name="email" placeholder="Email" value={formData.email} onChange={handleChange} required className="w-full p-2 mb-4 border rounded" />
-      <input type="password" name="password" placeholder="Senha" value={formData.password} onChange={handleChange} required className="w-full p-2 mb-4 border rounded" />
-      <input type="text" name="phone" placeholder="Telefone" value={formData.phone} onChange={handleChange} required className="w-full p-2 mb-4 border rounded" />
-      <StateCitySelect
-        state={formData.state}
-        city={formData.city}
-        onChange={({ state, city }) =>
-          setFormData((prev) => ({ ...prev, state, city }))
-        }
-      />
+        {error && (
+          <p className="mb-4 text-sm text-red-500">{error}</p>
+        )}
 
-      <button type="submit" disabled={loading} className="w-full bg-blue-500 text-white p-2 rounded hover:bg-blue-600 transition">
-        {loading ? 'Registrando...' : 'Registrar'}
-      </button>
-    </form>
+        <form onSubmit={handleSubmit} className="space-y-4">
+          <InputField name="name" placeholder="Nome" value={formData.name} onChange={handleChange} />
+          <InputField name="email" placeholder="Email" value={formData.email} onChange={handleChange} />
+          <InputField name="password" type="password" placeholder="Senha" value={formData.password} onChange={handleChange} />
+          <InputField name="phone" placeholder="Telefone" value={formData.phone} onChange={handleChange} />
+
+          <StateCitySelect
+            state={formData.state}
+            city={formData.city}
+            onChange={({ state, city }) =>
+              setFormData((prev) => ({ ...prev, state, city }))
+            }
+          />
+
+          <Button disabled={loading}>
+            {loading ? 'Registrando...' : 'Registrar'}
+          </Button>
+        </form>
+      </FormCard>
+    </div>
   );
 }

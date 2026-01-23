@@ -1,4 +1,4 @@
-import client from './client';
+import authClient from './authClient';
 
 export async function uploadImages(files: File[]): Promise<string[]> {
   const formData = new FormData();
@@ -7,7 +7,7 @@ export async function uploadImages(files: File[]): Promise<string[]> {
     formData.append('files', file);
   });
 
-  const response = await client.post<string[]>(
+  const response = await authClient.post<string[]>(
     '/api/uploads/images',
     formData,
     {

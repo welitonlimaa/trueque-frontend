@@ -17,19 +17,20 @@ export default function ListingGrid({
   renderFooter,
 }: Props) {
   return (
-    <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+    <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
       {items.map((listing) => {
         const isSelected = selectedId === listing.id;
-
         const Wrapper = onSelect ? 'button' : 'div';
 
         return (
           <Wrapper
             key={listing.id}
             onClick={() => onSelect?.(listing.id)}
-            className={`text-left ${
-              isSelected ? 'ring-2 ring-blue-500 bg-blue-50' : ''
-            }`}
+            className={`
+              text-left rounded-lg
+              ${onSelect ? 'cursor-pointer' : ''}
+              ${isSelected ? 'ring-2 ring-blue-500' : ''}
+            `}
           >
             <ListingCard>
               <ListingCardMedia
@@ -37,9 +38,11 @@ export default function ListingGrid({
                 alt={listing.title}
               />
 
-              <div className="flex-1">
+              <div className="flex flex-col justify-between flex-1">
                 <ListingCardInfo listing={listing} />
-                {renderFooter?.(listing)}
+                {renderFooter && (
+                  <div className="mt-2">{renderFooter(listing)}</div>
+                )}
               </div>
             </ListingCard>
           </Wrapper>

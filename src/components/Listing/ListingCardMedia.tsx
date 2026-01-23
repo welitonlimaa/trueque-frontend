@@ -4,12 +4,18 @@ type Props = {
   className?: string;
 };
 
-export function ListingCardMedia({ src, alt, className }: Props) {
+export function ListingCardMedia({ src, alt, className = '' }: Props) {
   if (!src) return null;
 
   return (
     <div
-      className={`w-full aspect-square overflow-hidden rounded bg-gray-100 ${className ?? ''}`}
+      className={`
+        w-24 h-24
+        shrink-0
+        overflow-hidden rounded-md
+        bg-gray-100
+        ${className}
+      `}
     >
       <img
         src={src}

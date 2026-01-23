@@ -1,9 +1,9 @@
-import client from './client';
+import authClient from './authClient';
 import type { TradeOfferResponseDTO, TradeOfferWithListings, ListingResponseDTO, TradeOfferRequestDTO } from '../types/api';
 import { getListingById } from './listings';
 
 export async function getTradeOffersByListingId(listingId: string) {
-  const res = await client.get<TradeOfferResponseDTO[]>(
+  const res = await authClient.get<TradeOfferResponseDTO[]>(
     `/tradeoffers/listing/${listingId}/offers`
   );
   return res.data;
@@ -39,6 +39,6 @@ export async function getTradeOffersWithListings(
 export async function createTradeOffer(
   data: TradeOfferRequestDTO
 ) {
-  const res = await client.post('/tradeoffers', data);
+  const res = await authClient.post('/tradeoffers', data);
   return res.data;
 }

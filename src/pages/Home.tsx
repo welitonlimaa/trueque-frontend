@@ -1,9 +1,34 @@
+import { useEffect, useState } from 'react';
+import { getAllListings } from '../api/listings';
+import { useNavigate } from 'react-router-dom';
+import ListingGrid from '../components/Listing/ListingGrid';
+import { ListingResponseDTO } from '../types/api';
+
 export default function Home() {
+  const [listings, setListings] = useState<ListingResponseDTO[]>([]);
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    getAllListings().then(setListings);
+  }, []);
+
   return (
-    <main className="max-w-6xl mx-auto p-6">
-    <h1 className="text-2xl font-bold">
-        Bem-vindo ao Trueque
-    </h1>
-    </main>
-);
+    <>
+      <h1 className="text-2xl font-bold mb-6">
+        Mais procurados
+      </h1>
+
+      <ListingGrid
+        items={listings}
+        renderFooter={(listing) => (
+          <button
+            onClick={() => navigate(`/listings/${listing.id}`)}
+            className="mt-2 text-sm text-blue-600 hover:underline"
+          >
+            Ver detalhes
+          </button>
+        )}
+      />
+    </>
+  );
 }

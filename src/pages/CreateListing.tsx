@@ -8,7 +8,8 @@ import ImageUploader from '../components/ImageUploader';
 import { uploadImages } from '../api/uploads';
 import categories from '../data/categories.json';
 import conditions from '../data/conditions.json';
-import SelectField from '../components/SelectField';
+import SelectField from '../components/ui/SelectField';
+import FormCard from '../components/ui/FormCard';
 
 export default function CreateListing() {
   const navigate = useNavigate();
@@ -96,81 +97,83 @@ export default function CreateListing() {
   }
 
   return (
-    <div className="max-w-3xl mx-auto p-6 bg-white rounded shadow mt-8">
-      <h1 className="text-2xl font-bold mb-6">Criar novo anúncio</h1>
+    <div className="min-h-screen flex items-center justify-center bg-gray-50">
+      <FormCard>
+        <h1 className="text-2xl font-bold mb-6">Criar novo anúncio</h1>
 
-      {error && <p className="text-red-500 mb-4">{error}</p>}
+        {error && <p className="text-red-500 mb-4">{error}</p>}
 
-      <div className="mb-6 space-y-2">
-        <input type="file" accept="image/*" onChange={handleFileChange} />
+        <div className="mb-6 space-y-2">
+          <input type="file" accept="image/*" onChange={handleFileChange} />
 
-        <button
-          type="button"
-          onClick={handleAutofillWithAi}
-          disabled={loadingAi}
-          className="bg-purple-600 text-white px-4 py-2 rounded hover:bg-purple-700 disabled:opacity-50"
-        >
-          {loadingAi ? 'Analisando imagem...' : 'Preencher com IA'}
-        </button>
-      </div>
+          <button
+            type="button"
+            onClick={handleAutofillWithAi}
+            disabled={loadingAi}
+            className="bg-purple-600 text-white px-4 py-2 rounded hover:bg-purple-700 disabled:opacity-50"
+          >
+            {loadingAi ? 'Analisando imagem...' : 'Preencher com IA'}
+          </button>
+        </div>
 
-      <form onSubmit={handleSubmit} className="space-y-4">
-        <input
-          name="title"
-          placeholder="Título"
-          value={form.title}
-          onChange={handleChange}
-          required
-          className="w-full border p-2 rounded"
-        />
+        <form onSubmit={handleSubmit} className="space-y-4">
+          <input
+            name="title"
+            placeholder="Título"
+            value={form.title}
+            onChange={handleChange}
+            required
+            className="w-full border p-2 rounded"
+          />
 
-        <textarea
-          name="description"
-          placeholder="Descrição"
-          value={form.description}
-          onChange={handleChange}
-          className="w-full border p-2 rounded"
-        />
+          <textarea
+            name="description"
+            placeholder="Descrição"
+            value={form.description}
+            onChange={handleChange}
+            className="w-full border p-2 rounded"
+          />
 
-        <SelectField
-          value={form.category}
-          onChange={(value) =>
-            setForm((prev) => ({ ...prev, category: value }))
-          }
-          options={categories}
-          placeholder="Selecione a categoria"
-        />
+          <SelectField
+            value={form.category}
+            onChange={(value) =>
+              setForm((prev) => ({ ...prev, category: value }))
+            }
+            options={categories}
+            placeholder="Selecione a categoria"
+          />
 
-        <SelectField
-          value={form.condition}
-          onChange={(value) =>
-            setForm((prev) => ({ ...prev, condition: value }))
-          }
-          options={conditions}
-          placeholder="Condição"
-        />
+          <SelectField
+            value={form.condition}
+            onChange={(value) =>
+              setForm((prev) => ({ ...prev, condition: value }))
+            }
+            options={conditions}
+            placeholder="Condição"
+          />
 
-        <StateCitySelect
-          state={form.state}
-          city={form.city}
-          onChange={({ state, city }) =>
-            setForm((prev) => ({ ...prev, state, city }))
-          }
-        />
+          <StateCitySelect
+            state={form.state}
+            city={form.city}
+            onChange={({ state, city }) =>
+              setForm((prev) => ({ ...prev, state, city }))
+            }
+          />
 
-        <ImageUploader
-          images={images}
-          onChange={setImages}
-        />
+          <ImageUploader
+            images={images}
+            onChange={setImages}
+          />
 
-        <button
-          type="submit"
-          disabled={loading}
-          className="bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700 disabled:opacity-50"
-        >
-          {loading ? 'Criando...' : 'Criar anúncio'}
-        </button>
-      </form>
+          <button
+            type="submit"
+            disabled={loading}
+            className="bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700 disabled:opacity-50"
+          >
+            {loading ? 'Criando...' : 'Criar anúncio'}
+          </button>
+        </form>
+      </FormCard>
     </div>
   );
 }

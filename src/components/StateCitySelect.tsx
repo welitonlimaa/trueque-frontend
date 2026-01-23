@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
 import states from '../data/states.json';
 import { getCitiesByState } from '../utils/locations';
-import SelectField from './SelectField';
+import SelectField from './ui/SelectField';
 
 type Props = {
   state: string;
@@ -14,7 +14,6 @@ export default function StateCitySelect({ state, city, onChange }: Props) {
   const [loadingCities, setLoadingCities] = useState(false);
   const [loadedState, setLoadedState] = useState<string | null>(null);
 
-  /** 🔁 Sempre que o estado mudar, limpa cidades */
   useEffect(() => {
     setCities([]);
     setLoadedState(null);
@@ -25,8 +24,7 @@ export default function StateCitySelect({ state, city, onChange }: Props) {
   }, [state]);
 
   async function loadCities() {
-    if (!state) return;
-    if (loadedState === state) return; // evita requisição duplicada
+    if (!state || loadedState === state) return;
 
     try {
       setLoadingCities(true);
@@ -39,34 +37,40 @@ export default function StateCitySelect({ state, city, onChange }: Props) {
   }
 
   return (
-    <div className="grid grid-cols-2 gap-4">
+    <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
       {/* ESTADO */}
-      <SelectField
-        value={state}
-        onChange={(value) =>
-          onChange({ state: value, city: '' })
-        }
-        options={states}
-        placeholder="Selecione o estado"
-      />
+      <div className="flex flex-col gap-1">
+        <label className="text-sm text-gray-600">Estado</label>
+        <SelectField
+          value={state}
+          onChange={(value) =>
+            onChange({ state: value, city: '' })
+          }
+          options={states}
+          placeholder="Selecione o estado"
+        />
+      </div>
 
       {/* CIDADE */}
-      <SelectField
-        value={city}
-        disabled={!state}
-        onOpen={loadCities}
-        onChange={(value) =>
-          onChange({ state, city: value })
-        }
-        options={cities.map((c) => ({ code: c, name: c }))}
-        placeholder={
-          !state
-            ? 'Selecione o estado primeiro'
-            : loadingCities
-            ? 'Carregando cidades...'
-            : 'Selecione a cidade'
-        }
-      />
+      <div className="flex flex-col gap-1">
+        <label className="text-sm text-gray-600">Cidade</label>
+        <SelectField
+          value={city}
+          disabled={!state}
+          onOpen={loadCities}
+          onChange={(value) =>
+            onChange({ state, city: value })
+          }
+          options={cities.map((c) => ({ code: c, name: c }))}
+          placeholder={
+            !state
+              ? 'Selecione o estado...'
+              : loadingCities
+              ? 'Carregando cidades...'
+              : 'Selecione a cidade'
+          }
+        />
+      </div>
     </div>
   );
 }

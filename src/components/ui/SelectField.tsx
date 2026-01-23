@@ -1,15 +1,3 @@
-import { SelectOption } from "../types/common";
-
-type Props = {
-  value: string;
-  onChange: (value: string) => void;
-  options?: SelectOption[];
-  placeholder?: string;
-  disabled?: boolean;
-  className?: string;
-  onOpen?: () => void;
-};
-
 export default function SelectField({
   value,
   onChange,
@@ -25,13 +13,11 @@ export default function SelectField({
       disabled={disabled}
       onClick={onOpen}
       onChange={(e) => onChange(e.target.value)}
-      className={`w-full border p-2 rounded ${className}`}
+      className={`w-full rounded-md border border-gray-300 px-3 py-2 text-sm
+      focus:outline-none focus:ring-2 focus:ring-blue-500
+      disabled:bg-gray-100 ${className}`}
     >
-      {placeholder && (
-        <option value="">
-          {placeholder}
-        </option>
-      )}
+      {placeholder && <option value="">{placeholder}</option>}
 
       {options.map((opt) => (
         <option key={opt.code} value={opt.code}>
