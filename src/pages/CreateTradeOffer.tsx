@@ -7,6 +7,7 @@ import { ListingCardMedia } from '../components/Listing/ListingCardMedia';
 import { ListingCardInfo } from '../components/Listing/ListingCardInfo';
 import ListingGrid from '../components/Listing/ListingGrid';
 import ListingCard from '../components/Listing/ListingCard';
+import Button from '../components/ui/Button';
 
 export default function CreateTradeOffer() {
   const requestedListingId = useParams().requestedListingId ?? '';
@@ -92,12 +93,9 @@ export default function CreateTradeOffer() {
         />
       </section>
 
-      <button
-        onClick={handleSubmit}
-        className="bg-blue-600 text-white px-6 py-2 rounded hover:bg-blue-700"
-      >
+      <Button size="lg" onClick={handleSubmit}>
         Enviar proposta
-      </button>
+      </Button>
     </div>
   );
 }

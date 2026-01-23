@@ -20,7 +20,7 @@ export default function Login() {
   return (
     <div className="min-h-screen flex items-center justify-center bg-gray-50">
       <FormCard>
-        <h1 className="mb-6 text-xl font-semibold">Entrar</h1>
+        <h1 className="mb-6 text-xl font-semibold text-center">Login</h1>
 
         <form onSubmit={handleSubmit(onSubmit)} className="space-y-4">
           <InputField

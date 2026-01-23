@@ -10,6 +10,9 @@ import categories from '../data/categories.json';
 import conditions from '../data/conditions.json';
 import SelectField from '../components/ui/SelectField';
 import FormCard from '../components/ui/FormCard';
+import Button from '../components/ui/Button';
+import InputField from '../components/ui/InputField';
+import ImageUploadWithAI from '../components/ImageUploadWithAI';
 
 export default function CreateListing() {
   const navigate = useNavigate();
@@ -35,11 +38,6 @@ export default function CreateListing() {
   ) {
     const { name, value } = e.target;
     setForm((prev) => ({ ...prev, [name]: value }));
-  }
-
-  function handleFileChange(e: React.ChangeEvent<HTMLInputElement>) {
-    const file = e.target.files?.[0] || null;
-    setImageFile(file);
   }
 
   async function handleAutofillWithAi() {
@@ -99,32 +97,19 @@ export default function CreateListing() {
   return (
     <div className="min-h-screen flex items-center justify-center bg-gray-50">
       <FormCard>
-        <h1 className="text-2xl font-bold mb-6">Criar novo anúncio</h1>
+        <h1 className="text-2xl font-bold mb-6 text-center">Criar novo anúncio</h1>
 
         {error && <p className="text-red-500 mb-4">{error}</p>}
 
-        <div className="mb-6 space-y-2">
-          <input type="file" accept="image/*" onChange={handleFileChange} />
-
-          <button
-            type="button"
-            onClick={handleAutofillWithAi}
-            disabled={loadingAi}
-            className="bg-purple-600 text-white px-4 py-2 rounded hover:bg-purple-700 disabled:opacity-50"
-          >
-            {loadingAi ? 'Analisando imagem...' : 'Preencher com IA'}
-          </button>
-        </div>
+        <ImageUploadWithAI
+          loadingAi={loadingAi}
+          selectedFile={imageFile}
+          onFileSelect={setImageFile}
+          onAutofillWithAi={handleAutofillWithAi}
+        />
 
         <form onSubmit={handleSubmit} className="space-y-4">
-          <input
-            name="title"
-            placeholder="Título"
-            value={form.title}
-            onChange={handleChange}
-            required
-            className="w-full border p-2 rounded"
-          />
+          <InputField name="title" placeholder="Título" value={form.title} onChange={handleChange} />
 
           <textarea
             name="description"
@@ -165,13 +150,9 @@ export default function CreateListing() {
             onChange={setImages}
           />
 
-          <button
-            type="submit"
-            disabled={loading}
-            className="bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700 disabled:opacity-50"
-          >
-            {loading ? 'Criando...' : 'Criar anúncio'}
-          </button>
+          <Button type="submit" loading={loading}>
+            Criar anúncio
+          </Button>
         </form>
       </FormCard>
     </div>

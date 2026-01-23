@@ -63,12 +63,12 @@ export default function ListingDetail() {
         </Link>
       )}
 
-      <button
-        onClick={() => navigate(`/trade-offers/new/${listing.id}`)}
-        className="text-sm text-blue-600 hover:underline"
+      <Link
+        to={`/trade-offers/new/${listing.id}`}
+        className="inline-flex mt-6 px-4 py-2 bg-blue-600 text-white rounded"
       >
         Fazer proposta
-      </button>
+      </Link>
 
     </div>
   );

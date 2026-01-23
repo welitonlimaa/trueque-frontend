@@ -16,19 +16,32 @@ export default function ImageUploader({ images, onChange }: Props) {
   }
 
   function removeImage(index: number) {
-    const updated = images.filter((_, i) => i !== index);
-    onChange(updated);
+    onChange(images.filter((_, i) => i !== index));
   }
 
   return (
-    <div>
-      {/* BOTÃO */}
+    <div className="space-y-3">
+      {/* DROP / SELECT */}
       <button
         type="button"
         onClick={() => inputRef.current?.click()}
-        className="border-2 border-dashed border-gray-300 rounded-lg p-6 w-full text-center hover:bg-gray-50"
+        className="
+          w-full rounded-lg border-2 border-dashed border-gray-300
+          bg-white px-4 py-6 text-center
+          text-sm text-gray-600
+          hover:border-blue-500 hover:bg-blue-50
+          transition
+        "
       >
-        📷 Adicionar imagens
+        <div className="flex flex-col items-center gap-1">
+          <span className="text-2xl">📷</span>
+          <span className="font-medium">
+            Adicionar imagens
+          </span>
+          <span className="text-xs text-gray-500">
+            JPG, PNG • até 5MB
+          </span>
+        </div>
       </button>
 
       <input
@@ -42,22 +55,31 @@ export default function ImageUploader({ images, onChange }: Props) {
 
       {/* PREVIEW */}
       {images.length > 0 && (
-        <div className="mt-4 flex gap-3 overflow-x-auto">
+        <div className="flex gap-3 overflow-x-auto pb-1">
           {images.map((file, index) => (
             <div
               key={index}
-              className="relative min-w-[120px] h-[120px] border rounded overflow-hidden"
+              className="
+                relative h-28 w-28 flex-shrink-0
+                overflow-hidden rounded-lg border bg-gray-100
+              "
             >
               <img
                 src={URL.createObjectURL(file)}
                 alt="preview"
-                className="w-full h-full object-cover"
+                className="h-full w-full object-cover"
               />
 
               <button
                 type="button"
                 onClick={() => removeImage(index)}
-                className="absolute top-1 right-1 bg-black/70 text-white rounded-full w-6 h-6 text-xs"
+                className="
+                  absolute right-1 top-1
+                  rounded-full bg-black/70
+                  px-1.5 py-0.5
+                  text-xs text-white
+                  hover:bg-red-600
+                "
               >
                 ✕
               </button>

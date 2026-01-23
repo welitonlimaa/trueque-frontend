@@ -35,7 +35,7 @@ export default function RegisterForm({ loading, error, onSubmit }: Props) {
   return (
     <div className="min-h-screen flex items-center justify-center bg-gray-50">
       <FormCard>
-        <h2 className="mb-6 text-xl font-semibold">Criar conta</h2>
+        <h1 className="mb-6 text-xl font-semibold text-center">Criar conta</h1>
 
         {error && (
           <p className="mb-4 text-sm text-red-500">{error}</p>
