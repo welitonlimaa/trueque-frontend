@@ -3,6 +3,7 @@
 **Trueque Marketplace** é uma plataforma de trocas de itens em que **não há envolvimento de dinheiro**. Seu objetivo é **promover a sustentabilidade**, a **reutilização consciente de bens** e estimular uma **economia colaborativa e ecológica**.
 
 A ideia central é **evitar o desperdício**, **prolongar a vida útil dos objetos** e **incentivar conexões sociais significativas** por meio da troca. Qualquer item pode ser oferecido ou solicitado, valorizando o que já existe e reduzindo a necessidade de consumo excessivo.
+
 ---
 
 ## Telas da Aplicação
