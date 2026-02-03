@@ -1,73 +1,133 @@
-# React + TypeScript + Vite
+# Trueque Marketplace – Frontend
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+Este repositório contém o **frontend** da aplicação **Trueque Marketplace**, uma plataforma de anúncios e trocas de produtos com apoio de **Inteligência Artificial** para preenchimento automático de anúncios a partir de imagens.
 
-Currently, two official plugins are available:
+O frontend é responsável por toda a experiência do usuário, incluindo autenticação, criação de anúncios, upload de imagens e interação com a IA.
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) (or [oxc](https://oxc.rs) when used in [rolldown-vite](https://vite.dev/guide/rolldown)) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+---
 
-## React Compiler
+## Telas da Aplicação
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+### Home (Desktop)
+![Home Desktop](./imagens/home.png)
 
-## Expanding the ESLint configuration
+### Home (Mobile)
+![Home Mobile](./imagens/homemobile.png)
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
+### Criar Anúncio
+![Criar Anúncio](./imagens/anunciar.png)
 
-```js
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
+### Criar Anúncio (Mobile)
+![Criar Anúncio Mobile](./imagens/anunciarmobile.png)
 
-      // Remove tseslint.configs.recommended and replace with this
-      tseslint.configs.recommendedTypeChecked,
-      // Alternatively, use this for stricter rules
-      tseslint.configs.strictTypeChecked,
-      // Optionally, add this for stylistic rules
-      tseslint.configs.stylisticTypeChecked,
 
-      // Other configs...
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+## Funcionalidades
+
+- Autenticação de usuários (login e cadastro)
+- Criação de anúncios de marketplace
+- Upload de imagens com preview
+- Preenchimento automático de anúncio com IA (título, categoria e descrição)
+- Interface responsiva (desktop e mobile)
+- Integração completa com API backend
+
+---
+
+## IA aplicada
+
+A funcionalidade de **Preenchimento com IA** permite que o usuário envie uma imagem do produto e receba automaticamente:
+
+- Título sugerido
+- Categoria
+- Descrição do produto
+
+Essa comunicação é feita via API, que processa a imagem e retorna os dados estruturados.
+
+---
+
+## Tecnologias utilizadas
+
+### Frontend
+
+- **React**
+- **TypeScript**
+- **Vite**
+- **Tailwind CSS**
+- **Axios**
+
+### Boas práticas
+
+- Componentização reutilizável
+- Design system simples (Button, Upload, etc.)
+- Estados de loading e feedback visual
+- Código limpo e modular
+
+---
+
+## Backend (API)
+
+O backend da aplicação está disponível em:
+
+ **[https://github.com/welitonlimaa/trueque-api]**
+
+Ele é responsável por:
+- Autenticação com JWT
+- Processamento de imagens
+- Integração com IA
+- Persistência de dados
+
+---
+
+## Como executar o projeto
+
+### Pré-requisitos
+
+- Node.js >= 18
+- npm ou yarn
+
+### Passos
+
+```bash
+# instalar dependências
+npm install
+
+# executar em modo desenvolvimento
+npm run dev
 ```
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
+Para acessar pelo celular (rede local):
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
-
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-      // Enable lint rules for React
-      reactX.configs['recommended-typescript'],
-      // Enable lint rules for React DOM
-      reactDom.configs.recommended,
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+```bash
+npm run dev -- --host
 ```
+
+---
+
+## Variáveis de ambiente
+
+Crie um arquivo `.env` na raiz do projeto:
+
+```env
+VITE_API_URL=http://IP_DA_SUA_MAQUINA:8080
+```
+
+---
+
+## Responsividade
+
+O projeto foi pensado para funcionar bem em:
+
+- Desktop
+- Tablets
+- Smartphones
+
+Utilizando breakpoints do Tailwind CSS.
+
+---
+
+## Status do projeto
+
+🚧 Em desenvolvimento ativo
+
+Novas funcionalidades e melhorias de UX/UI estão em constante evolução.
+
+---
