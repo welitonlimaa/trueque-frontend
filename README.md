@@ -1,9 +1,8 @@
 # Trueque Marketplace – Frontend
 
-Este repositório contém o **frontend** da aplicação **Trueque Marketplace**, uma plataforma de anúncios e trocas de produtos com apoio de **Inteligência Artificial** para preenchimento automático de anúncios a partir de imagens.
+**Trueque Marketplace** é uma plataforma de trocas de itens em que **não há envolvimento de dinheiro**. Seu objetivo é **promover a sustentabilidade**, a **reutilização consciente de bens** e estimular uma **economia colaborativa e ecológica**.
 
-O frontend é responsável por toda a experiência do usuário, incluindo autenticação, criação de anúncios, upload de imagens e interação com a IA.
-
+A ideia central é **evitar o desperdício**, **prolongar a vida útil dos objetos** e **incentivar conexões sociais significativas** por meio da troca. Qualquer item pode ser oferecido ou solicitado, valorizando o que já existe e reduzindo a necessidade de consumo excessivo.
 ---
 
 ## Telas da Aplicação
