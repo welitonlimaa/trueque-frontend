@@ -23,7 +23,7 @@ export default function Home() {
         renderFooter={(listing) => (
           <button
             onClick={() => navigate(`/listings/${listing.id}`)}
-            className="mt-2 text-sm text-blue-600 hover:underline"
+            className="mt-2 text-sm text-green-600 hover:underline"
           >
             Ver detalhes
           </button>

@@ -23,11 +23,11 @@ export default function Button({
 
   const variants: Record<Variant, string> = {
     primary:
-      'bg-blue-600 text-white hover:bg-blue-700 focus:ring-blue-600 disabled:bg-blue-300',
+      'bg-green-600 text-white hover:bg-green-700 focus:ring-green-600 disabled:bg-green-300',
     secondary:
       'border border-gray-300 bg-white text-gray-700 hover:bg-gray-50 focus:ring-gray-300',
     ghost:
-      'text-blue-600 hover:bg-blue-50 focus:ring-blue-600',
+      'text-green-600 hover:bg-green-50 focus:ring-green-600',
     danger:
       'bg-red-600 text-white hover:bg-red-700 focus:ring-red-600',
     ai:

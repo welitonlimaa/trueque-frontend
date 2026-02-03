@@ -19,7 +19,7 @@ export default function ListingsList() {
         renderFooter={(listing) => (
           <button
             onClick={() => navigate(`/listings/${listing.id}`)}
-            className="mt-3 text-sm text-blue-600"
+            className="mt-3 text-sm text-green-600"
           >
             Ver detalhes
           </button>

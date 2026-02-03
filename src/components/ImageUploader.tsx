@@ -29,7 +29,7 @@ export default function ImageUploader({ images, onChange }: Props) {
           w-full rounded-lg border-2 border-dashed border-gray-300
           bg-white px-4 py-6 text-center
           text-sm text-gray-600
-          hover:border-blue-500 hover:bg-blue-50
+          hover:border-green-500 hover:bg-green-50
           transition
         "
       >

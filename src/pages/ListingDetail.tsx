@@ -57,7 +57,7 @@ export default function ListingDetail() {
       {listing?.user?.id === currentUser?.userId && (
         <Link
           to={`/listings/${listing.id}/trade-offers`}
-          className="inline-flex mt-6 px-4 py-2 bg-blue-600 text-white rounded"
+          className="inline-flex mt-6 px-4 py-2 bg-green-600 text-white rounded"
         >
           Ver propostas recebidas
         </Link>
@@ -65,7 +65,7 @@ export default function ListingDetail() {
 
       <Link
         to={`/trade-offers/new/${listing.id}`}
-        className="inline-flex mt-6 px-4 py-2 bg-blue-600 text-white rounded"
+        className="inline-flex mt-6 px-4 py-2 bg-green-600 text-white rounded"
       >
         Fazer proposta
       </Link>

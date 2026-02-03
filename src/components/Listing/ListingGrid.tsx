@@ -29,7 +29,7 @@ export default function ListingGrid({
             className={`
               text-left rounded-lg
               ${onSelect ? 'cursor-pointer' : ''}
-              ${isSelected ? 'ring-2 ring-blue-500' : ''}
+              ${isSelected ? 'ring-2 ring-green-500' : ''}
             `}
           >
             <ListingCard>
