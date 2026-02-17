@@ -3,6 +3,7 @@ import { jwtDecode } from 'jwt-decode';
 type JwtPayload = {
   sub: string;
   email: string;
+  userId: string;
   exp: number;
 };
 

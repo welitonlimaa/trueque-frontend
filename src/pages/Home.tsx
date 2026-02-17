@@ -12,6 +12,8 @@ export default function Home() {
     getAllListings().then(setListings);
   }, []);
 
+  console.log(listings)
+
   return (
     <>
       <h1 className="text-2xl font-bold mb-6">

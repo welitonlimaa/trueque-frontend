@@ -1,6 +1,7 @@
 import client from './client';
 import authClient from './authClient';
 import type { AiListingResponseDTO, ListingRequestDTO, ListingResponseDTO } from '../types/api';
+import { getCurrentUser } from '../utils/getCurrentUser';
 
 
 export async function getAllListings() {
@@ -14,8 +15,15 @@ return res.data;
 }
 
 export async function getListingById(id: string) {
-const res = await client.get<ListingResponseDTO>(`/listings/${id}`);
-return res.data;
+  const jwt = getCurrentUser()
+
+  if (jwt) {
+    const res = await authClient.get<ListingResponseDTO>(`/listings/${id}`);
+    return res.data;
+  }
+
+  const res = await client.get<ListingResponseDTO>(`/listings/${id}`);
+  return res.data;
 }
 
 
@@ -24,6 +32,11 @@ const res = await authClient.post<ListingResponseDTO>('/listings/createlisting',
 return res.data;
 }
 
+
+export async function deleteListing(id: string) {
+const res = await authClient.delete<void>(`/listings/${id}`);
+return res.data;
+}
 
 export async function autofillListingWithAi(
   imageBase64: string

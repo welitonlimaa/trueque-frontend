@@ -8,6 +8,7 @@ import { ListingCardInfo } from '../components/Listing/ListingCardInfo';
 import ListingGrid from '../components/Listing/ListingGrid';
 import ListingCard from '../components/Listing/ListingCard';
 import Button from '../components/ui/Button';
+import { getCurrentUser } from '../utils/getCurrentUser';
 
 export default function CreateTradeOffer() {
   const requestedListingId = useParams().requestedListingId ?? '';
@@ -19,6 +20,8 @@ export default function CreateTradeOffer() {
   const [selectedListingId, setSelectedListingId] = useState<string | null>(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState('');
+
+  const currentUser = getCurrentUser();
 
   useEffect(() => {
     if (!requestedListingId) return;
@@ -59,7 +62,7 @@ export default function CreateTradeOffer() {
   if (loading) return <p>Carregando...</p>;
   if (error) return <p className="text-red-500">{error}</p>;
 
-  if (!requestedListingId) {
+  if ((!requestedListingId) || (requestedListing?.user?.id === currentUser?.userId)) {
     setError('Rota inválida');
     return;
   }
