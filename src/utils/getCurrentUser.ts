@@ -1,11 +1,5 @@
 import { jwtDecode } from 'jwt-decode';
-
-type JwtPayload = {
-  sub: string;
-  email: string;
-  userId: string;
-  exp: number;
-};
+import { JwtPayload } from '../types/common';
 
 export function getCurrentUser() {
   const token = localStorage.getItem('token');

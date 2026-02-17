@@ -1,7 +1,6 @@
 import React from 'react';
 import { Routes, Route, Navigate } from 'react-router-dom';
 
-// import Home from './pages/Home';
 import Login from './pages/Login';
 import Register from './pages/Register';
 import ListingsList from './pages/ListingsList';
@@ -11,6 +10,7 @@ import CreateListing from './pages/CreateListing';
 import MainLayout from './layouts/MainLayout';
 import Home from './pages/Home';
 import CreateTradeOffer from './pages/CreateTradeOffer';
+import MyListings from './pages/MyListings';
 
 export default function App() {
   return (
@@ -21,6 +21,7 @@ export default function App() {
         <Route path="/register" element={<Register />} />
 
         <Route path="/listings" element={<ListingsList />} />
+        <Route path="/listings/my" element={<MyListings />} />
         <Route path="/listings/:id" element={<ListingDetail />} />
         <Route path="/listings/:id/trade-offers" element={<ListingTradeOffers />} />
         <Route path="/listings/new" element={<CreateListing />} />

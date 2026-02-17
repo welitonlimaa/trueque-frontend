@@ -1,16 +1,26 @@
 import { useEffect, useState } from 'react';
-import { getAllListings } from '../api/listings';
+import { getMyListings } from '../api/listings';
 import { useNavigate } from 'react-router-dom';
 import ListingGrid from '../components/Listing/ListingGrid';
 import { ListingResponseDTO } from '../types/api';
+import { getCurrentUser } from '../utils/getCurrentUser';
 
-export default function Home() {
+export default function MyListings() {
   const [listings, setListings] = useState<ListingResponseDTO[]>([]);
   const navigate = useNavigate();
 
   useEffect(() => {
-    getAllListings().then(setListings);
-  }, []);
+    const currentUserData = getCurrentUser();
+
+    if (!currentUserData) {
+        navigate('/login');
+        return;
+    }
+
+    getMyListings().then(setListings);
+
+    }, [navigate]);
+
 
   return (
     <>

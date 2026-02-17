@@ -9,6 +9,7 @@ import ListingGrid from '../components/Listing/ListingGrid';
 import ListingCard from '../components/Listing/ListingCard';
 import Button from '../components/ui/Button';
 import { getCurrentUser } from '../utils/getCurrentUser';
+import { JwtPayload } from '../types/common';
 
 export default function CreateTradeOffer() {
   const requestedListingId = useParams().requestedListingId ?? '';
@@ -16,18 +17,20 @@ export default function CreateTradeOffer() {
 
   const [requestedListing, setRequestedListing] =
     useState<ListingResponseDTO | null>(null);
+  const [currentUser, setCurrentUser] = useState<JwtPayload | null>(null);
   const [myListings, setMyListings] = useState<ListingResponseDTO[]>([]);
   const [selectedListingId, setSelectedListingId] = useState<string | null>(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState('');
-
-  const currentUser = getCurrentUser();
 
   useEffect(() => {
     if (!requestedListingId) return;
 
     async function loadData() {
       try {
+        const currentUserData = getCurrentUser();
+        setCurrentUser(currentUserData)
+
         const [requested, mine] = await Promise.all([
           getListingById(requestedListingId),
           getMyListings(),
@@ -60,6 +63,7 @@ export default function CreateTradeOffer() {
   }
 
   if (loading) return <p>Carregando...</p>;
+  if (!currentUser) navigate('/login');
   if (error) return <p className="text-red-500">{error}</p>;
 
   if ((!requestedListingId) || (requestedListing?.user?.id === currentUser?.userId)) {
