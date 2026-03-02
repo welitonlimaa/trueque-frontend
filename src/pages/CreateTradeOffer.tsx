@@ -81,8 +81,8 @@ export default function CreateTradeOffer() {
         {requestedListing && (
           <ListingCard>
             <ListingCardMedia
-              image={requestedListing.images?.[0]}
-              title={requestedListing.title}
+              src={requestedListing.images?.[0]}
+              alt={requestedListing.title}
             />
             <ListingCardInfo listing={requestedListing} />
           </ListingCard>
@@ -95,7 +95,7 @@ export default function CreateTradeOffer() {
 
         <ListingGrid
           items={myListings}
-          selectedId={selectedListingId}
+          selectedId={selectedListingId ?? undefined}
           onSelect={setSelectedListingId}
         />
       </section>

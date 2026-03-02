@@ -1,6 +1,13 @@
 import { useRef } from 'react';
 import Button from './ui/Button';
 
+type Props = {
+  loadingAi: boolean;
+  onFileSelect: (file: File) => void;
+  onAutofillWithAi: () => void;
+  selectedFile: File | null;
+};
+
 export default function ImageUploadWithAI({
   loadingAi,
   onFileSelect,

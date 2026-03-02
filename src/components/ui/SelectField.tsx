@@ -1,3 +1,20 @@
+import { SelectOption } from "../../types/common";
+
+type Option = {
+  code: string;
+  name: string;
+};
+
+type Props = {
+  value: string;
+  onChange: (value: string) => void;
+  options?: Option[];
+  placeholder?: string;
+  disabled?: boolean;
+  className?: string;
+  onOpen?: () => void;
+};
+
 export default function SelectField({
   value,
   onChange,
@@ -19,7 +36,7 @@ export default function SelectField({
     >
       {placeholder && <option value="">{placeholder}</option>}
 
-      {options.map((opt) => (
+      {options.map((opt: SelectOption) => (
         <option key={opt.code} value={opt.code}>
           {opt.name}
         </option>

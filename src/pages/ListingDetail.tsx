@@ -57,8 +57,12 @@ export default function ListingDetail() {
 
       <p className="mb-4">{listing.description}</p>
 
-      <div className="text-gray-400 text-sm">Criado em: {new Date(listing.createdAt).toLocaleDateString()}</div>
-      <div className="text-gray-400 text-sm">Criado por: {listing.user.name}</div>
+      <div className="text-gray-400 text-sm">
+        Criado em: {listing.createdAt ? new Date(listing.createdAt).toLocaleDateString() : '-'}
+      </div>
+      <div className="text-gray-400 text-sm">
+        Criado por: {listing.user?.name ?? 'Usuário'}
+      </div>
       {listing?.user?.id === currentUser?.userId && (
         <div>
           <Link
