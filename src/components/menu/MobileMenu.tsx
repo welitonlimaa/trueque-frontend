@@ -54,6 +54,12 @@ export default function MobileMenu({
                 >
                   Meus Anúncios
                 </Link>
+                <Link
+                  to="/profile"
+                  onClick={() => setOpen(false)}
+                >
+                  Perfil
+                </Link>
               </>
             )}
 

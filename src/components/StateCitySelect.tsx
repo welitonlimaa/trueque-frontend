@@ -15,12 +15,26 @@ export default function StateCitySelect({ state, city, onChange }: Props) {
   const [loadedState, setLoadedState] = useState<string | null>(null);
 
   useEffect(() => {
-    setCities([]);
-    setLoadedState(null);
-
-    if (city) {
-      onChange({ state, city: '' });
+    if (!state) {
+      setCities([]);
+      setLoadedState(null);
+      return;
     }
+
+    async function init() {
+      if (loadedState === state) return;
+
+      setLoadingCities(true);
+      try {
+        const data = await getCitiesByState(state);
+        setCities(data);
+        setLoadedState(state);
+      } finally {
+        setLoadingCities(false);
+      }
+    }
+
+    init();
   }, [state]);
 
   async function loadCities() {

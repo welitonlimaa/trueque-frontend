@@ -11,6 +11,7 @@ import MainLayout from './layouts/MainLayout';
 import Home from './pages/Home';
 import CreateTradeOffer from './pages/CreateTradeOffer';
 import MyListings from './pages/MyListings';
+import UserProfile from './pages/UserProfile';
 
 export default function App() {
   return (
@@ -19,6 +20,7 @@ export default function App() {
         <Route path="/" element={<Home />} />
         <Route path="/login" element={<Login />} />
         <Route path="/register" element={<Register />} />
+        <Route path="/profile" element={<UserProfile />} />
 
         <Route path="/listings" element={<ListingsList />} />
         <Route path="/listings/my" element={<MyListings />} />

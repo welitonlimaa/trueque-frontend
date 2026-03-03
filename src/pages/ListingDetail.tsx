@@ -67,14 +67,14 @@ export default function ListingDetail() {
         <div>
           <Link
             to={`/listings/${listing.id}/trade-offers`}
-            className="inline-flex mt-6 px-4 py-2 bg-green-600 text-white hover:bg-green-300 rounded"
+            className="inline-flex mt-6 px-4 py-2 bg-green-600 text-white hover:bg-green-700 rounded"
           >
             Ver propostas
           </Link>
 
           <button
             onClick={() => handleDelete(listing.id)}
-            className="inline-flex mt-6 px-4 py-2 m-2 text-white bg-red-500 hover:bg-red-300 rounded"
+            className="inline-flex mt-6 px-4 py-2 m-2 text-white bg-red-500 hover:bg-red-700 rounded"
           >
             Deletar
           </button>

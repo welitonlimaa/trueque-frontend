@@ -7,6 +7,28 @@ export type UserSummaryDTO = {
     name: string;
     profilePicture?: string;
 };
+
+export type UserResponseDTO = {
+  id: string;
+  email: string;
+  name: string;
+  phone: string;
+  googleId?: string;
+  profilePicture?: string;
+  city: string;
+  state: string;
+};
+
+export interface UserDataRequestDTO {
+    name: string;
+    email: string;
+    password: string;
+    phone: string;
+    city: string;
+    state: string;
+    profilePicture?: string;
+    googleId?: string;
+};
   
 export type ListingResponseDTO = {
     id: string;
@@ -30,17 +52,6 @@ export type ListingRequestDTO = {
   city: string;
   state: string;
   images?: string[];
-};
-
-export interface UserDataRequestDTO {
-    name: string;
-    email: string;
-    password: string;
-    phone: string;
-    city: string;
-    state: string;
-    profilePicture?: string;
-    googleId?: string;
 };
 
 export type TradeOfferResponseDTO = {
