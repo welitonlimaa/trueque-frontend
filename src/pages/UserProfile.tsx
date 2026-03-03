@@ -118,8 +118,6 @@ export default function UserProfile() {
           />
 
           <Button
-            variant="secondary"
-            className='bg-blue-500 text-white hover:bg-blue-600'
             loading={loadingPassword}
             onClick={handleUpdatePassword}
           >
