@@ -55,7 +55,7 @@ export default function ImageUploadWithAI({
       <input
         ref={inputRef}
         type="file"
-        accept="image/*"
+        accept="image/jpeg,image/png,image/gif,image/webp"
         hidden
         onChange={(e) => {
           const file = e.target.files?.[0];

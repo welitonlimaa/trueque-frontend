@@ -12,7 +12,22 @@ export default function ImageUploader({ images, onChange }: Props) {
     const files = Array.from(e.target.files || []);
     if (!files.length) return;
 
-    onChange([...images, ...files]);
+    const validTypes = [
+      'image/jpeg',
+      'image/png',
+      'image/gif',
+      'image/webp',
+    ];
+
+    const validFiles = files.filter((file) =>
+      validTypes.includes(file.type)
+    );
+
+    if (validFiles.length !== files.length) {
+      alert('Algumas imagens foram ignoradas. Formatos permitidos: JPG, PNG, GIF e WEBP.');
+    }
+
+    onChange([...images, ...validFiles]);
   }
 
   function removeImage(index: number) {
@@ -47,8 +62,8 @@ export default function ImageUploader({ images, onChange }: Props) {
       <input
         ref={inputRef}
         type="file"
-        accept="image/*"
         multiple
+        accept="image/jpeg,image/png,image/gif,image/webp"
         hidden
         onChange={handleSelectImages}
       />
