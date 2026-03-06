@@ -33,7 +33,7 @@ export default function CreateTradeOffer() {
 
         const [requested, mine] = await Promise.all([
           getListingById(requestedListingId),
-          getMyListings(),
+          getMyListings('ativo'),
         ]);
 
         setRequestedListing(requested);

@@ -9,9 +9,12 @@ const res = await client.get<ListingResponseDTO[]>('/listings/');
 return res.data;
 }
 
-export async function getMyListings() {
-const res = await authClient.get<ListingResponseDTO[]>('/listings/my');
-return res.data;
+export async function getMyListings(status?: string) {
+  const res = await authClient.get<ListingResponseDTO[]>('/listings/my', {
+    params: status ? { status } : undefined,
+  });
+
+  return res.data;
 }
 
 export async function getListingById(id: string) {
