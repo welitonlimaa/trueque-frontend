@@ -1,19 +1,37 @@
 import { useForm } from 'react-hook-form';
+import { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
+
 import InputField from '../components/ui/InputField';
 import Button from '../components/ui/Button';
 import FormCard from '../components/ui/FormCard';
 import { login } from '../api/auth';
 
-export default function Login() {
-  const { register, handleSubmit } = useForm();
+type LoginForm = {
+  email: string;
+  password: string;
+};
 
-  async function onSubmit(data: any) {
+export default function Login() {
+  const {
+    register,
+    handleSubmit,
+    formState: { isValid }
+  } = useForm<LoginForm>({
+    mode: "onChange"
+  });
+  const [error, setError] = useState(false);
+  const navigate = useNavigate();
+
+  async function onSubmit(data: LoginForm) {
     try {
       const res = await login(data);
+
       localStorage.setItem('token', res.token);
-      window.location.href = '/';
+
+      navigate('/');
     } catch {
-      alert('Erro ao logar');
+      setError(true);
     }
   }
 
@@ -22,20 +40,28 @@ export default function Login() {
       <FormCard>
         <h1 className="mb-6 text-xl font-semibold text-center">Login</h1>
 
+        {error && (
+          <p className="mb-4 text-sm text-red-500 text-center">
+            Erro ao logar
+          </p>
+        )}
+
         <form onSubmit={handleSubmit(onSubmit)} className="space-y-4">
           <InputField
-            {...register('email')}
+            {...register('email', { required: true })}
             placeholder="Email"
             type="email"
           />
 
           <InputField
-            {...register('password')}
+            {...register('password', { required: true })}
             placeholder="Senha"
             type="password"
           />
 
-          <Button type="submit">Entrar</Button>
+          <Button type="submit" disabled={!isValid}>
+            Entrar
+          </Button>
         </form>
       </FormCard>
     </div>

@@ -13,8 +13,9 @@ export default function RegisterPage() {
     setLoading(true);
     setError('');
     try {
-      await register(data); // chama a função do auth.ts
-      navigate('/login');   // redireciona para login após sucesso
+      const res = await register(data);
+      localStorage.setItem('token', res.token);
+      navigate('/');
     } catch (err: any) {
       setError(err.response?.data?.message || 'Erro ao registrar usuário');
     } finally {

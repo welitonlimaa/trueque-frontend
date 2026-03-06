@@ -32,6 +32,13 @@ export default function RegisterForm({ loading, error, onSubmit }: Props) {
     onSubmit(formData);
   };
 
+  const isFormValid = formData.name &&
+                      formData.email &&
+                      formData.password &&
+                      formData.phone &&
+                      formData.city &&
+                      formData.state;
+
   return (
     <div className="min-h-screen flex items-center justify-center bg-gray-50">
       <FormCard>
@@ -55,7 +62,11 @@ export default function RegisterForm({ loading, error, onSubmit }: Props) {
             }
           />
 
-          <Button disabled={loading}>
+          <Button
+            type="submit"
+            loading={loading}
+            isFormValid={Boolean(isFormValid)}
+          >
             {loading ? 'Registrando...' : 'Registrar'}
           </Button>
         </form>

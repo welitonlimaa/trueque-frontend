@@ -7,6 +7,7 @@ type Props = React.ButtonHTMLAttributes<HTMLButtonElement> & {
   variant?: Variant;
   size?: Size;
   loading?: boolean;
+  isFormValid?: boolean;
 };
 
 export default function Button({
@@ -14,12 +15,13 @@ export default function Button({
   size = 'md',
   loading = false,
   disabled,
+  isFormValid = true,
   className = '',
   children,
   ...props
 }: Props) {
   const base =
-    'w-full inline-flex items-center justify-center rounded-md font-medium transition focus:outline-none focus:ring-2 focus:ring-offset-2 disabled:cursor-not-allowed';
+    'w-full inline-flex items-center justify-center rounded-md font-medium transition focus:outline-none focus:ring-2 focus:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-60';
 
   const variants: Record<Variant, string> = {
     primary:
@@ -40,10 +42,12 @@ export default function Button({
     lg: 'px-6 py-2.5 text-base',
   };
 
+  const isDisabled = disabled || loading || !isFormValid;
+
   return (
     <button
       {...props}
-      disabled={disabled || loading}
+      disabled={isDisabled}
       className={`${base} ${variants[variant]} ${sizes[size]} ${className}`}
     >
       {loading ? 'Carregando...' : children}

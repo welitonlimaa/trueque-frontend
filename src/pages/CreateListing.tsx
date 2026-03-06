@@ -94,6 +94,13 @@ export default function CreateListing() {
     }
   }
 
+  const isFormValid = form.title &&
+                      form.description &&
+                      form.category &&
+                      form.condition &&
+                      form.city &&
+                      form.state
+
   return (
     <div className="min-h-screen flex items-center justify-center bg-gray-50">
       <FormCard>
@@ -150,7 +157,11 @@ export default function CreateListing() {
             onChange={setImages}
           />
 
-          <Button type="submit" loading={loading}>
+          <Button 
+            type="submit" 
+            loading={loading}
+            isFormValid={Boolean(isFormValid)}
+          >
             Criar anúncio
           </Button>
         </form>

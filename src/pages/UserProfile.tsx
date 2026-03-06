@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react';
 import Button from '../components/ui/Button';
+import InputField from '../components/ui/InputField';
 import { deleteUser, getUserById, updateUserData, updateUserPassword } from '../api/users';
 import { getCurrentUser } from '../utils/getCurrentUser';
 import { UserResponseDTO } from '../types/api';
@@ -15,66 +16,74 @@ export default function UserProfile() {
     newPassword: '',
   });
 
-  const userId = getCurrentUser()?.userId
+  const userId = getCurrentUser()?.userId;
 
-  
-    useEffect(() => {
-        if (!userId) return;
+  useEffect(() => {
+    if (!userId) return;
+    getUserById(userId).then(setUser);
+  }, [userId]);
 
-        getUserById(userId).then(setUser);
-    }, [userId]);
+  if (!user) return null;
 
-    if (!user) return null;
+  const isUserDataValid =
+    user.name.trim() !== '' &&
+    user.state?.trim() !== '' &&
+    user.city?.trim() !== '';
 
-    const handleUpdateData = async () => {
-        setLoading(true);
-        try {
-            const updated = await updateUserData(user.id, user);
-            setUser(updated);
-        } finally {
-            setLoading(false);
-        }
-    };
+  const isPasswordValid =
+    passwordData.currentPassword.trim() !== '' &&
+    passwordData.newPassword.trim() !== '';
 
-    const handleUpdatePassword = async () => {
-        setLoadingPassword(true);
-        try {
-            await updateUserPassword(user.id, passwordData);
-            setPasswordData({ currentPassword: '', newPassword: '' });
-        } finally {
-            setLoadingPassword(false);
-        }
-    };
+  const handleUpdateData = async () => {
+    if (!isUserDataValid) return;
 
-    const handleDelete = async () => {
-        if (!confirm('Deseja realmente deletar seu perfil?')) return;
+    setLoading(true);
+    try {
+      const updated = await updateUserData(user.id, user);
+      setUser(updated);
+    } finally {
+      setLoading(false);
+    }
+  };
 
-        await deleteUser(user.id);
-    };
+  const handleUpdatePassword = async () => {
+    if (!isPasswordValid) return;
+
+    setLoadingPassword(true);
+    try {
+      await updateUserPassword(user.id, passwordData);
+      setPasswordData({ currentPassword: '', newPassword: '' });
+    } finally {
+      setLoadingPassword(false);
+    }
+  };
+
+  const handleDelete = async () => {
+    if (!confirm('Deseja realmente deletar seu perfil?')) return;
+    await deleteUser(user.id);
+  };
 
   return (
     <div className="min-h-screen bg-gray-50 flex justify-center py-10 px-4">
       <div className="w-full max-w-2xl space-y-6">
 
-        {/* Dados do usuário */}
+        {/* Dados */}
         <div className="bg-white border border-gray-200 rounded-lg p-6 space-y-4">
           <h1 className="text-lg font-semibold">Meus Dados</h1>
 
-          <input
-            className="w-full border rounded-md px-3 py-2 text-sm"
+          <InputField
+            required
             value={user.name}
             onChange={(e) => setUser({ ...user, name: e.target.value })}
             placeholder="Nome"
           />
 
-          <input
-            className="w-full border rounded-md px-3 py-2 text-sm"
+          <InputField
             value={user.email}
             disabled
           />
 
-          <input
-            className="w-full border rounded-md px-3 py-2 text-sm"
+          <InputField
             value={user.phone || ''}
             onChange={(e) => setUser({ ...user, phone: e.target.value })}
             placeholder="Telefone"
@@ -84,48 +93,59 @@ export default function UserProfile() {
             state={user.state}
             city={user.city}
             onChange={({ state, city }) =>
-              setUser(() => ({ ...user, state, city }))
+              setUser({ ...user, state, city })
             }
           />
 
-          <Button loading={loading} onClick={handleUpdateData}>
+          <Button
+            loading={loading}
+            disabled={!isUserDataValid}
+            onClick={handleUpdateData}
+          >
             Atualizar Dados
           </Button>
         </div>
 
-        {/* Atualizar senha */}
+        {/* Senha */}
         <div className="bg-white border border-gray-200 rounded-lg p-6 space-y-4">
           <h2 className="text-lg font-semibold">Atualizar Senha</h2>
 
-          <input
+          <InputField
             type="password"
-            className="w-full border rounded-md px-3 py-2 text-sm"
+            required
             placeholder="Senha Atual"
             value={passwordData.currentPassword}
             onChange={(e) =>
-              setPasswordData({ ...passwordData, currentPassword: e.target.value })
+              setPasswordData({
+                ...passwordData,
+                currentPassword: e.target.value,
+              })
             }
           />
 
-          <input
+          <InputField
             type="password"
-            className="w-full border rounded-md px-3 py-2 text-sm"
+            required
             placeholder="Nova Senha"
             value={passwordData.newPassword}
             onChange={(e) =>
-              setPasswordData({ ...passwordData, newPassword: e.target.value })
+              setPasswordData({
+                ...passwordData,
+                newPassword: e.target.value,
+              })
             }
           />
 
           <Button
             loading={loadingPassword}
+            disabled={!isPasswordValid}
             onClick={handleUpdatePassword}
           >
             Atualizar Senha
           </Button>
         </div>
 
-        {/* Deletar perfil */}
+        {/* Danger Zone */}
         <div className="bg-white border border-red-200 rounded-lg p-6 space-y-4">
           <h2 className="text-lg font-semibold text-red-600">
             Atenção
