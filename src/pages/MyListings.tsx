@@ -25,7 +25,7 @@ export default function MyListings() {
   return (
     <>
       <h1 className="text-2xl font-bold mb-6">
-        Mais procurados
+        Seus Anúncios
       </h1>
 
       <ListingGrid
