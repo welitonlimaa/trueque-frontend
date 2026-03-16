@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { createListing, autofillListingWithAi } from '../api/listings';
 import { ListingRequestDTO } from '../types/api';
@@ -13,6 +13,7 @@ import FormCard from '../components/ui/FormCard';
 import Button from '../components/ui/Button';
 import InputField from '../components/ui/InputField';
 import ImageUploadWithAI from '../components/ImageUploadWithAI';
+import { getCurrentUser } from '../utils/getCurrentUser';
 
 export default function CreateListing() {
   const navigate = useNavigate();
@@ -100,6 +101,15 @@ export default function CreateListing() {
                       form.condition &&
                       form.city &&
                       form.state
+
+  useEffect(() => {
+      const currentUserData = getCurrentUser();
+  
+      if (!currentUserData) {
+          navigate('/login');
+      }
+  
+  }, [navigate]);
 
   return (
     <div className="min-h-screen flex items-center justify-center bg-gray-50">
