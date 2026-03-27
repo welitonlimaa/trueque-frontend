@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react';
 import { queryAiChatbot } from '../../api/chatbot';
 import botIcon from '../../image/bot.svg';
+import { MarkdownMessage } from './ReactMarkDown';
 
 
 type Message = {
@@ -18,7 +19,6 @@ export default function ChatbotWidget() {
   const [messages, setMessages] = useState<Message[]>([]);
   const [loading, setLoading] = useState(false);
 
-  // 🔹 Carregar sessão
   useEffect(() => {
     const saved = sessionStorage.getItem('chatbot_state');
     if (saved) {
@@ -29,7 +29,6 @@ export default function ChatbotWidget() {
     }
   }, []);
 
-  // 🔹 Persistir sessão
   useEffect(() => {
     sessionStorage.setItem(
       'chatbot_state',
@@ -76,7 +75,6 @@ export default function ChatbotWidget() {
 
       setMessages((prev) => [...prev, botMsg, followUpMsg]);
 
-      // 🔥 força nova escolha de tema
       setAwaitingMode(true);
       setMode(null);
 
@@ -99,7 +97,6 @@ export default function ChatbotWidget() {
 
   return (
     <>
-      {/* BOTÃO FLUTUANTE */}
       <button
         onClick={() => setOpen(!open)}
         className="fixed bottom-6 right-6 w-16 h-16 rounded-full bg-green-600 text-white flex items-center justify-center shadow-lg hover:bg-green-700 transition"
@@ -107,11 +104,9 @@ export default function ChatbotWidget() {
         <img src={botIcon} alt="Chatbot" className="w-12 h-12" />
       </button>
 
-      {/* CHAT */}
       {open && (
         <div className="fixed bottom-24 right-6 w-80 h-[500px] bg-white border rounded-lg shadow-xl flex flex-col overflow-hidden">
 
-          {/* HEADER */}
           <div className="p-3 border-b flex justify-between items-center bg-green-600">
             <img src={botIcon} alt="Chatbot" className="w-8 h-8" />
             <span className="font-medium text-white">
@@ -122,7 +117,6 @@ export default function ChatbotWidget() {
             </button>
           </div>
 
-          {/* BODY */}
           <div className="flex-1 overflow-y-auto p-3 space-y-2">
             {messages.map((m, i) => (
               <div
@@ -133,7 +127,7 @@ export default function ChatbotWidget() {
                     : 'bg-gray-100 text-gray-800'
                 }`}
               >
-                {m.text}
+                <MarkdownMessage content={m.text} />
               </div>
             ))}
 
@@ -143,7 +137,6 @@ export default function ChatbotWidget() {
               </p>
             )}
 
-            {/* 🔥 SELETOR DE TEMA DINÂMICO */}
             {awaitingMode && (
               <div className="space-y-2 mt-2">
                 <p className="text-xs text-gray-500">
@@ -167,7 +160,6 @@ export default function ChatbotWidget() {
             )}
           </div>
 
-          {/* INPUT */}
           <div className="p-2 border-t flex gap-2">
             <input
               value={question}
