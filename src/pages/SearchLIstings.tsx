@@ -76,7 +76,6 @@ export default function SearchListings() {
         )}
       />
 
-      {/* 🔥 PAGINAÇÃO */}
       {totalPages > 1 && (
         <div className="flex justify-center gap-2 mt-4">
           <button
