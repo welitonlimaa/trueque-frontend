@@ -84,3 +84,8 @@ export type TradeOfferRequestDTO = {
   offeredListingId: string;
   requestedListingId: string;
 };
+
+export interface AiChatbotResponseDTO {
+  answer: string;
+  sources?: any[];
+}

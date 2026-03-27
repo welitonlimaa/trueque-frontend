@@ -3,6 +3,7 @@ import { getAllListings } from '../api/listings';
 import { useNavigate } from 'react-router-dom';
 import ListingGrid from '../components/Listing/ListingGrid';
 import { ListingResponseDTO } from '../types/api';
+import ChatbotWidget from '../components/chatbot/ChatbotWidget';
 
 export default function Home() {
   const [listings, setListings] = useState<ListingResponseDTO[]>([]);
@@ -29,6 +30,8 @@ export default function Home() {
           </button>
         )}
       />
+
+      <ChatbotWidget />
     </>
   );
 }
