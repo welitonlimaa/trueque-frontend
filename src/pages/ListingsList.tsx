@@ -3,6 +3,7 @@ import { getAllListings } from '../api/listings';
 import { useNavigate } from 'react-router-dom';
 import ListingGrid from '../components/Listing/ListingGrid';
 import { ListingResponseDTO } from '../types/api';
+import SearchBar from '../components/search/SearchBar';
 
 export default function ListingsList() {
   const [listings, setListings] = useState<ListingResponseDTO[]>([]);
@@ -14,6 +15,7 @@ export default function ListingsList() {
 
   return (
     <div className="p-6">
+      <SearchBar />
       <ListingGrid
         items={listings}
         renderFooter={(listing) => (

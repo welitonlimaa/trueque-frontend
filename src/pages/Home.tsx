@@ -4,6 +4,7 @@ import { useNavigate } from 'react-router-dom';
 import ListingGrid from '../components/Listing/ListingGrid';
 import { ListingResponseDTO } from '../types/api';
 import ChatbotWidget from '../components/chatbot/ChatbotWidget';
+import SearchBar from '../components/search/SearchBar';
 
 export default function Home() {
   const [listings, setListings] = useState<ListingResponseDTO[]>([]);
@@ -15,6 +16,8 @@ export default function Home() {
 
   return (
     <>
+      <SearchBar />
+      
       <h1 className="text-2xl font-bold mb-6">
         Mais procurados
       </h1>

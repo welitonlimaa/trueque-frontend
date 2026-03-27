@@ -2,6 +2,7 @@ import client from './client';
 import authClient from './authClient';
 import type { AiListingResponseDTO, ListingRequestDTO, ListingResponseDTO } from '../types/api';
 import { getCurrentUser } from '../utils/getCurrentUser';
+import { SearchListingsParams, SearchListingsResponse } from '../types/interfaces';
 
 
 export async function getAllListings() {
@@ -51,6 +52,23 @@ export async function autofillListingWithAi(
   const res = await authClient.post<AiListingResponseDTO>(
     '/ai/listings/autofill',
     { imageBase64 }
+  );
+
+  return res.data;
+}
+
+export async function searchListings(
+  params: SearchListingsParams
+): Promise<SearchListingsResponse> {
+  const res = await authClient.get<SearchListingsResponse>(
+    '/listings/search',
+    {
+      params: {
+        q: params.query,
+        page: params.page ?? 0,
+        size: params.size ?? 10,
+      },
+    }
   );
 
   return res.data;

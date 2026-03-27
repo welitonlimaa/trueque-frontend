@@ -12,6 +12,7 @@ import Home from './pages/Home';
 import CreateTradeOffer from './pages/CreateTradeOffer';
 import MyListings from './pages/MyListings';
 import UserProfile from './pages/UserProfile';
+import SearchListings from './pages/SearchLIstings';
 
 export default function App() {
   return (
@@ -31,6 +32,8 @@ export default function App() {
           path="/trade-offers/new/:requestedListingId"
           element={<CreateTradeOffer />}
         />
+
+        <Route path="/search" element={<SearchListings />} />
       </Route>
 
       <Route path="*" element={<Navigate to="/" />} />
