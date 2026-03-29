@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react';
 import { queryAiChatbot } from '../../api/chatbot';
 import botIcon from '../../image/bot.svg';
+import setaIcon from '../../image/seta.svg';
 import { MarkdownMessage } from './ReactMarkDown';
 
 
@@ -178,7 +179,7 @@ export default function ChatbotWidget() {
               disabled={!question || loading || awaitingMode}
               className="bg-green-600 text-white px-3 rounded-md disabled:opacity-50"
             >
-              →
+              <img src={setaIcon} alt="seta para perguntar" className="w-6 h-6" />
             </button>
           </div>
         </div>

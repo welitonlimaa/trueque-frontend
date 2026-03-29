@@ -1,7 +1,7 @@
 import { AiChatbotResponseDTO } from "../types/api";
 import client from "./client";
 
-const MIN_SCORE = '1.35';
+const MIN_SCORE = 1.35;
 
 export async function queryAiChatbot(
   question: string,
