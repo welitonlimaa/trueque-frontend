@@ -5,6 +5,10 @@
 A ideia central é **evitar o desperdício**, **prolongar a vida útil dos objetos** e **incentivar conexões sociais significativas** por meio da troca. Qualquer item pode ser oferecido ou solicitado, valorizando o que já existe e reduzindo a necessidade de consumo excessivo.
 
 ---
+* Frontend: [https://github.com/welitonlimaa/trueque-frontend](https://github.com/welitonlimaa/trueque-frontend)
+* Backend: [https://github.com/welitonlimaa/trueque-api](https://github.com/welitonlimaa/trueque-api)
+* AiService: [https://github.com/welitonlimaa/trueque-aiservice](https://github.com/welitonlimaa/trueque-aiservice)
+---
 
 ## Telas da Aplicação
 
